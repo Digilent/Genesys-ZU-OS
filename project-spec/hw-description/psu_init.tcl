@@ -4814,11 +4814,11 @@ set psu_ddr_init_data {
 		# Register : GPR1 @ 0XFD0800C4</p>
 
 		# General Purpose Register 1
-		# PSU_DDR_PHY_GPR1_GPR1                                                           0xde
+		# PSU_DDR_PHY_GPR1_GPR1                                                           0xe3
 
 		# General Purpose Register 1
-		#(OFFSET, MASK, VALUE)      (0XFD0800C4, 0xFFFFFFFFU ,0x000000DEU)  */
-    mask_write 0XFD0800C4 0xFFFFFFFF 0x000000DE
+		#(OFFSET, MASK, VALUE)      (0XFD0800C4, 0xFFFFFFFFU ,0x000000E3U)  */
+    mask_write 0XFD0800C4 0xFFFFFFFF 0x000000E3
 		# Register : DCR @ 0XFD080100</p>
 
 		# DDR4 Gear Down Timing.
@@ -6992,14 +6992,14 @@ set psu_ddr_init_data {
 		# PSU_DDR_PHY_DX2GCR4_RESERVED_7_6                                                0x0
 
 		# VREF Enable control for DQ IO (Single Ended) buffers of a byte lane.
-		# PSU_DDR_PHY_DX2GCR4_DXREFIEN                                                    0xf
+		# PSU_DDR_PHY_DX2GCR4_DXREFIEN                                                    0x1
 
 		# VRMON control for DQ IO (Single Ended) buffers of a byte lane.
 		# PSU_DDR_PHY_DX2GCR4_DXREFIMON                                                   0x0
 
 		# DATX8 n General Configuration Register 4
-		#(OFFSET, MASK, VALUE)      (0XFD080910, 0xFFFFFFFFU ,0x0E00B03CU)  */
-    mask_write 0XFD080910 0xFFFFFFFF 0x0E00B03C
+		#(OFFSET, MASK, VALUE)      (0XFD080910, 0xFFFFFFFFU ,0x0E00B004U)  */
+    mask_write 0XFD080910 0xFFFFFFFF 0x0E00B004
 		# Register : DX2GCR5 @ 0XFD080914</p>
 
 		# Reserved. Returns zeros on reads.
@@ -7245,14 +7245,14 @@ set psu_ddr_init_data {
 		# PSU_DDR_PHY_DX3GCR4_RESERVED_7_6                                                0x0
 
 		# VREF Enable control for DQ IO (Single Ended) buffers of a byte lane.
-		# PSU_DDR_PHY_DX3GCR4_DXREFIEN                                                    0xf
+		# PSU_DDR_PHY_DX3GCR4_DXREFIEN                                                    0x1
 
 		# VRMON control for DQ IO (Single Ended) buffers of a byte lane.
 		# PSU_DDR_PHY_DX3GCR4_DXREFIMON                                                   0x0
 
 		# DATX8 n General Configuration Register 4
-		#(OFFSET, MASK, VALUE)      (0XFD080A10, 0xFFFFFFFFU ,0x0E00B03CU)  */
-    mask_write 0XFD080A10 0xFFFFFFFF 0x0E00B03C
+		#(OFFSET, MASK, VALUE)      (0XFD080A10, 0xFFFFFFFFU ,0x0E00B004U)  */
+    mask_write 0XFD080A10 0xFFFFFFFF 0x0E00B004
 		# Register : DX3GCR5 @ 0XFD080A14</p>
 
 		# Reserved. Returns zeros on reads.
@@ -9786,50 +9786,6 @@ set psu_ddr_init_data {
 		# DATX8 0-1 I/O Configuration Register
 		#(OFFSET, MASK, VALUE)      (0XFD081530, 0xFFFFFFFFU ,0x70400000U)  */
     mask_write 0XFD081530 0xFFFFFFFF 0x70400000
-		# Register : DX8SLbPLLCR0 @ 0XFD0817C4</p>
-
-		# PLL Bypass
-		# PSU_DDR_PHY_DX8SLBPLLCR0_PLLBYP                                                 0x0
-
-		# PLL Reset
-		# PSU_DDR_PHY_DX8SLBPLLCR0_PLLRST                                                 0x0
-
-		# PLL Power Down
-		# PSU_DDR_PHY_DX8SLBPLLCR0_PLLPD                                                  0x0
-
-		# Reference Stop Mode
-		# PSU_DDR_PHY_DX8SLBPLLCR0_RSTOPM                                                 0x0
-
-		# PLL Frequency Select
-		# PSU_DDR_PHY_DX8SLBPLLCR0_FRQSEL                                                 0x2
-
-		# Relock Mode
-		# PSU_DDR_PHY_DX8SLBPLLCR0_RLOCKM                                                 0x0
-
-		# Charge Pump Proportional Current Control
-		# PSU_DDR_PHY_DX8SLBPLLCR0_CPPC                                                   0x9
-
-		# Charge Pump Integrating Current Control
-		# PSU_DDR_PHY_DX8SLBPLLCR0_CPIC                                                   0x0
-
-		# Gear Shift
-		# PSU_DDR_PHY_DX8SLBPLLCR0_GSHIFT                                                 0x0
-
-		# Reserved. Return zeroes on reads.
-		# PSU_DDR_PHY_DX8SLBPLLCR0_RESERVED_11_9                                          0x0
-
-		# Analog Test Enable (ATOEN)
-		# PSU_DDR_PHY_DX8SLBPLLCR0_ATOEN                                                  0x0
-
-		# Analog Test Control
-		# PSU_DDR_PHY_DX8SLBPLLCR0_ATC                                                    0x0
-
-		# Digital Test Control
-		# PSU_DDR_PHY_DX8SLBPLLCR0_DTC                                                    0x0
-
-		# DAXT8 0-8 PLL Control Register 0
-		#(OFFSET, MASK, VALUE)      (0XFD0817C4, 0xFFFFFFFFU ,0x02120000U)  */
-    mask_write 0XFD0817C4 0xFFFFFFFF 0x02120000
 		# Register : DX8SLbDQSCTL @ 0XFD0817DC</p>
 
 		# Reserved. Return zeroes on reads.
@@ -9880,6 +9836,133 @@ set psu_ddr_init_data {
 }
 
 set psu_ddr_qos_init_data {
+		# : AFI INTERCONNECT QOS CONFIGURATION
+		# Register : AFIFM_RDQoS @ 0XFD360008</p>
+
+		# Sets the level of the QoS field to be used for the read channel 4'b0000:
+    #  Lowest Priority' ' '4'b1111: Highest Priority
+		# PSU_AFIFM0_AFIFM_RDQOS_VALUE                                                    0
+
+		# QoS Read Channel Register
+		#(OFFSET, MASK, VALUE)      (0XFD360008, 0x0000000FU ,0x00000000U)  */
+    mask_write 0XFD360008 0x0000000F 0x00000000
+		# Register : AFIFM_WRQoS @ 0XFD36001C</p>
+
+		# Sets the level of the QoS field to be used for the write channel 4'b0000
+    # : Lowest Priority' ' '4'b1111: Highest Priority
+		# PSU_AFIFM0_AFIFM_WRQOS_VALUE                                                    0
+
+		# QoS Write Channel Register
+		#(OFFSET, MASK, VALUE)      (0XFD36001C, 0x0000000FU ,0x00000000U)  */
+    mask_write 0XFD36001C 0x0000000F 0x00000000
+		# Register : AFIFM_RDQoS @ 0XFD370008</p>
+
+		# Sets the level of the QoS field to be used for the read channel 4'b0000:
+    #  Lowest Priority' ' '4'b1111: Highest Priority
+		# PSU_AFIFM1_AFIFM_RDQOS_VALUE                                                    0
+
+		# QoS Read Channel Register
+		#(OFFSET, MASK, VALUE)      (0XFD370008, 0x0000000FU ,0x00000000U)  */
+    mask_write 0XFD370008 0x0000000F 0x00000000
+		# Register : AFIFM_WRQoS @ 0XFD37001C</p>
+
+		# Sets the level of the QoS field to be used for the write channel 4'b0000
+    # : Lowest Priority' ' '4'b1111: Highest Priority
+		# PSU_AFIFM1_AFIFM_WRQOS_VALUE                                                    0
+
+		# QoS Write Channel Register
+		#(OFFSET, MASK, VALUE)      (0XFD37001C, 0x0000000FU ,0x00000000U)  */
+    mask_write 0XFD37001C 0x0000000F 0x00000000
+		# Register : AFIFM_RDQoS @ 0XFD380008</p>
+
+		# Sets the level of the QoS field to be used for the read channel 4'b0000:
+    #  Lowest Priority' ' '4'b1111: Highest Priority
+		# PSU_AFIFM2_AFIFM_RDQOS_VALUE                                                    0
+
+		# QoS Read Channel Register
+		#(OFFSET, MASK, VALUE)      (0XFD380008, 0x0000000FU ,0x00000000U)  */
+    mask_write 0XFD380008 0x0000000F 0x00000000
+		# Register : AFIFM_WRQoS @ 0XFD38001C</p>
+
+		# Sets the level of the QoS field to be used for the write channel 4'b0000
+    # : Lowest Priority' ' '4'b1111: Highest Priority
+		# PSU_AFIFM2_AFIFM_WRQOS_VALUE                                                    0
+
+		# QoS Write Channel Register
+		#(OFFSET, MASK, VALUE)      (0XFD38001C, 0x0000000FU ,0x00000000U)  */
+    mask_write 0XFD38001C 0x0000000F 0x00000000
+		# Register : AFIFM_RDQoS @ 0XFD390008</p>
+
+		# Sets the level of the QoS field to be used for the read channel 4'b0000:
+    #  Lowest Priority' ' '4'b1111: Highest Priority
+		# PSU_AFIFM3_AFIFM_RDQOS_VALUE                                                    0
+
+		# QoS Read Channel Register
+		#(OFFSET, MASK, VALUE)      (0XFD390008, 0x0000000FU ,0x00000000U)  */
+    mask_write 0XFD390008 0x0000000F 0x00000000
+		# Register : AFIFM_WRQoS @ 0XFD39001C</p>
+
+		# Sets the level of the QoS field to be used for the write channel 4'b0000
+    # : Lowest Priority' ' '4'b1111: Highest Priority
+		# PSU_AFIFM3_AFIFM_WRQOS_VALUE                                                    0
+
+		# QoS Write Channel Register
+		#(OFFSET, MASK, VALUE)      (0XFD39001C, 0x0000000FU ,0x00000000U)  */
+    mask_write 0XFD39001C 0x0000000F 0x00000000
+		# Register : AFIFM_RDQoS @ 0XFD3A0008</p>
+
+		# Sets the level of the QoS field to be used for the read channel 4'b0000:
+    #  Lowest Priority' ' '4'b1111: Highest Priority
+		# PSU_AFIFM4_AFIFM_RDQOS_VALUE                                                    0
+
+		# QoS Read Channel Register
+		#(OFFSET, MASK, VALUE)      (0XFD3A0008, 0x0000000FU ,0x00000000U)  */
+    mask_write 0XFD3A0008 0x0000000F 0x00000000
+		# Register : AFIFM_WRQoS @ 0XFD3A001C</p>
+
+		# Sets the level of the QoS field to be used for the write channel 4'b0000
+    # : Lowest Priority' ' '4'b1111: Highest Priority
+		# PSU_AFIFM4_AFIFM_WRQOS_VALUE                                                    0
+
+		# QoS Write Channel Register
+		#(OFFSET, MASK, VALUE)      (0XFD3A001C, 0x0000000FU ,0x00000000U)  */
+    mask_write 0XFD3A001C 0x0000000F 0x00000000
+		# Register : AFIFM_RDQoS @ 0XFD3B0008</p>
+
+		# Sets the level of the QoS field to be used for the read channel 4'b0000:
+    #  Lowest Priority' ' '4'b1111: Highest Priority
+		# PSU_AFIFM5_AFIFM_RDQOS_VALUE                                                    0
+
+		# QoS Read Channel Register
+		#(OFFSET, MASK, VALUE)      (0XFD3B0008, 0x0000000FU ,0x00000000U)  */
+    mask_write 0XFD3B0008 0x0000000F 0x00000000
+		# Register : AFIFM_WRQoS @ 0XFD3B001C</p>
+
+		# Sets the level of the QoS field to be used for the write channel 4'b0000
+    # : Lowest Priority' ' '4'b1111: Highest Priority
+		# PSU_AFIFM5_AFIFM_WRQOS_VALUE                                                    0
+
+		# QoS Write Channel Register
+		#(OFFSET, MASK, VALUE)      (0XFD3B001C, 0x0000000FU ,0x00000000U)  */
+    mask_write 0XFD3B001C 0x0000000F 0x00000000
+		# Register : AFIFM_RDQoS @ 0XFF9B0008</p>
+
+		# Sets the level of the QoS field to be used for the read channel 4'b0000:
+    #  Lowest Priority' ' '4'b1111: Highest Priority
+		# PSU_AFIFM6_AFIFM_RDQOS_VALUE                                                    0
+
+		# QoS Read Channel Register
+		#(OFFSET, MASK, VALUE)      (0XFF9B0008, 0x0000000FU ,0x00000000U)  */
+    mask_write 0XFF9B0008 0x0000000F 0x00000000
+		# Register : AFIFM_WRQoS @ 0XFF9B001C</p>
+
+		# Sets the level of the QoS field to be used for the write channel 4'b0000
+    # : Lowest Priority' ' '4'b1111: Highest Priority
+		# PSU_AFIFM6_AFIFM_WRQOS_VALUE                                                    0
+
+		# QoS Write Channel Register
+		#(OFFSET, MASK, VALUE)      (0XFF9B001C, 0x0000000FU ,0x00000000U)  */
+    mask_write 0XFF9B001C 0x0000000F 0x00000000
 }
 
 set psu_mio_init_data {
@@ -13121,8 +13204,8 @@ set psu_mio_init_data {
 
 		# When set, this enables mio_bank1_pullupdown to selects pull up or pull d
     # own for MIO Bank 1 - control MIO[51:26]
-		#(OFFSET, MASK, VALUE)      (0XFF180164, 0x03FFFFFFU ,0x02FC0FEFU)  */
-    mask_write 0XFF180164 0x03FFFFFF 0x02FC0FEF
+		#(OFFSET, MASK, VALUE)      (0XFF180164, 0x03FFFFFFU ,0x03F03FBEU)  */
+    mask_write 0XFF180164 0x03FFFFFF 0x03F03FBE
 		# Register : bank1_ctrl6 @ 0XFF180168</p>
 
 		# Each bit applies to a single IO. Bit 0 for MIO[26].
@@ -15926,6 +16009,7 @@ set psu_serdes_init_data {
 		# eq dynamic offset correction
 		#(OFFSET, MASK, VALUE)      (0XFD40D978, 0x00000010U ,0x00000010U)  */
     mask_write 0XFD40D978 0x00000010 0x00000010
+		# : SERDES ILL CALIB
 		# : DISABLE ECO FOR PCIE
 		# Register : eco_0 @ 0XFD3D001C</p>
 
