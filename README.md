@@ -1,4 +1,4 @@
-# Genesys ZU-5EV Petalinux Repository
+# Genesys ZU Petalinux Repository
 
 ## Genesys ZU Base
 
