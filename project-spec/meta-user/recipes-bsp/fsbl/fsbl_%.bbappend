@@ -16,3 +16,8 @@ SRC_URI += "\
 YAML_COMPILER_FLAGS_append = " -DFSBL_SECURE_EXCLUDE"
 YAML_COMPILER_FLAGS_append = " -DUHS_MODE_ENABLE"
 YAML_COMPILER_FLAGS_append = " -DXPS_BOARD_GZU_3EG"
+
+# Workaround erroneous -O2 compilation setting in FSBL
+do_configure_append() {
+    sed -i "/BSP_FLAGS := -O2 -c/d" ${WORKDIR}/build/fsbl/Makefile
+}
