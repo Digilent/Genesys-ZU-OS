@@ -12,8 +12,7 @@ SRC_URI += "\
 	file://0009-Print-board-specific-message-at-current-DEBUG-level.patch \
 	"
 
-# Exclude Secure feature from FSBL until -O2 compilation bug is fixed 
-YAML_COMPILER_FLAGS_append = " -DFSBL_SECURE_EXCLUDE"
+# Enable UHS-I speeds for SD
 YAML_COMPILER_FLAGS_append = " -DUHS_MODE_ENABLE"
 YAML_COMPILER_FLAGS_append = " -DXPS_BOARD_GZU_5EV"
 
