@@ -4,7 +4,7 @@ LICENSE = "WILC-Firmware"
 NO_GENERIC_LICENSE[WILC-Firmware] = "LICENCE.wilc_fw"
 
 LIC_FILES_CHKSUM = "file://LICENCE.wilc_fw;md5=89ed0ff0e98ce1c58747e9a39183cc9f"
-SRC_URI = "git://github.com/linux4wilc/firmware.git;branch=dev"
+SRC_URI = "git://github.com/linux4wilc/firmware.git;branch=dev;protocol=https"
 SRCREV = "571a3bea4c54580a63ebed81f7ebc24f97b7a9f4"
 PE = "1"
 PV = "0.0+git${SRCPV}"
