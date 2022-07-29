@@ -4,8 +4,6 @@ SRC_URI += "file://platform-top.h \
             file://devtool-fragment.cfg \
             "
 
-SRC_URI += "file://0001-zynq-MAC-in-flash.patch"
-
 do_configure_append () {
 	if [ "${U_BOOT_AUTO_CONFIG}" = "1" ]; then
 		install ${WORKDIR}/platform-auto.h ${S}/include/configs/
