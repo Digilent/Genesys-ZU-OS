@@ -2,6 +2,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI += "file://platform-top.h \
             file://devtool-fragment.cfg \
+            file://user_2022-08-15-16-23-00.cfg \
             "
 
 do_configure_append () {
