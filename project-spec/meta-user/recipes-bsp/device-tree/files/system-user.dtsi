@@ -8,6 +8,12 @@
 / {
 };
 
+&sata	{
+	phy-names = "sata-phy";
+	//phys = <PHANDLE CONTROLLER_TYPE CONTROLLER_INSTANCE LANE_NUM LANE_FREQ>;
+	phys = <&lane0 PHY_TYPE_SATA 0 1 150000000>;
+};
+
 &sdhci1 {
 	disable-wp;
 	xlnx,itap-delay-sd-hsd = <0x29>;
