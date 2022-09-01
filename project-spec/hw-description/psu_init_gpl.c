@@ -21598,7 +21598,7 @@ static u32 mask_read(u32 add, u32 mask)
 #undef SERDES_ICM_CFG1_OFFSET
 #define SERDES_ICM_CFG1_OFFSET     		0xFD410014
 
-static int serdes_rst_seq (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate)
+static int serdes_rst_seq (u32 pllsel, u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate)
 {
    Xil_Out32(SERDES_UPHY_SPARE0, 0x00000000); 
    Xil_Out32(SERDES_L0_TM_ANA_BYP_4, 0x00000040); 
@@ -21628,10 +21628,10 @@ static int serdes_rst_seq (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protoco
       Xil_Out32(SERDES_UPHY_SPARE0, 0x0000000F);
       mask_delay (100);
    }
-   if (lane0_protocol != 0) mask_poll(SERDES_L0_PLL_STATUS_READ_1, 0x00000010U);
-   if (lane1_protocol != 0) mask_poll(SERDES_L1_PLL_STATUS_READ_1, 0x00000010U);
-   if (lane2_protocol != 0) mask_poll(SERDES_L2_PLL_STATUS_READ_1, 0x00000010U);
-   if (lane3_protocol != 0) mask_poll(SERDES_L3_PLL_STATUS_READ_1, 0x00000010U);
+   if (pllsel == 0) mask_poll(SERDES_L0_PLL_STATUS_READ_1, 0x00000010U);
+   if (pllsel == 1) mask_poll(SERDES_L1_PLL_STATUS_READ_1, 0x00000010U);
+   if (pllsel == 2) mask_poll(SERDES_L2_PLL_STATUS_READ_1, 0x00000010U);
+   if (pllsel == 3) mask_poll(SERDES_L3_PLL_STATUS_READ_1, 0x00000010U);
    mask_delay(50);
    Xil_Out32(SERDES_L0_TM_ANA_BYP_4, 0x000000C0); 
    Xil_Out32(SERDES_L1_TM_ANA_BYP_4, 0x000000C0); 
@@ -21842,7 +21842,7 @@ static int serdes_bist_result(u32 lane_active)
    return (1); 
 }
 
-static int serdes_illcalib_pcie_gen1 (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate, u32 gen2_calib)
+static int serdes_illcalib_pcie_gen1 (u32 pllsel, u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate, u32 gen2_calib)
 {
 	u64 tempbistresult;
 	u32 currbistresult[4];
@@ -21930,7 +21930,7 @@ static int serdes_illcalib_pcie_gen1 (u32 lane3_protocol, u32 lane3_rate, u32 la
           if (lane1_active == 1) currbistresult[1] = 0;
           if (lane2_active == 1) currbistresult[2] = 0;
           if (lane3_active == 1) currbistresult[3] = 0;
-          serdes_rst_seq (lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, lane0_rate);
+          serdes_rst_seq (pllsel, lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, lane0_rate);
           if (lane3_active == 1) serdes_bist_run(3);
           if (lane2_active == 1) serdes_bist_run(2);
           if (lane1_active == 1) serdes_bist_run(1);
@@ -21996,19 +21996,23 @@ static int serdes_illcalib_pcie_gen1 (u32 lane3_protocol, u32 lane3_rate, u32 la
           {
             ill1_val[loop] = ((0x04 + meancount[loop]*8) % 0x100);
             ill12_val[loop] = ((0x04 + meancount[loop]*8) >= 0x100) ? 0x10 : 0x00;
-            Xil_Out32(0xFFFE0000+loop*4,iterresult[loop]);
+#ifdef XFSBL_DEBUG
+			Xil_Out32(0xFFFE0000+loop*4,iterresult[loop]);
             Xil_Out32(0xFFFE0010+loop*4,iterresult[loop+4]);
             Xil_Out32(0xFFFE0020+loop*4,bistpasscount[loop]);
             Xil_Out32(0xFFFE0030+loop*4,meancount[loop]);
+#endif
           }
           if (gen2_calib == 1) 
           {
             ill1_val[loop] = ((0x104 + meancount[loop]*8) % 0x100);
             ill12_val[loop] = ((0x104 + meancount[loop]*8) >= 0x200) ? 0x02 : 0x01;
-            Xil_Out32(0xFFFE0040+loop*4,iterresult[loop]);
+#ifdef XFSBL_DEBUG
+			Xil_Out32(0xFFFE0040+loop*4,iterresult[loop]);
             Xil_Out32(0xFFFE0050+loop*4,iterresult[loop+4]);
             Xil_Out32(0xFFFE0060+loop*4,bistpasscount[loop]);
             Xil_Out32(0xFFFE0070+loop*4,meancount[loop]);
+#endif
           }
         }
         if (gen2_calib != 1) 
@@ -22232,10 +22236,10 @@ static int serdes_illcalib (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protoc
       PSU_Mask_Write(SERDES_L0_TM_DIG_6, 0x0000000FU, 0x00000000U);
       temp_ill12 = Xil_In32(SERDES_L0_TM_ILL12) & 0xF0;
   
-      serdes_illcalib_pcie_gen1 (0, 0, 0, 0, 0, 0, 1, 0, 0);
+      serdes_illcalib_pcie_gen1 (0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
   
       Xil_Out32(SERDES_L0_PLL_FBDIV_FRAC_3_MSB,temp_pll_fbdiv_frac_3_msb_offset);
-      Xil_Out32(SERDES_PLL_REF_SEL3_OFFSET, temp_PLL_REF_SEL_OFFSET);
+      Xil_Out32(SERDES_PLL_REF_SEL0_OFFSET, temp_PLL_REF_SEL_OFFSET);
       Xil_Out32(SERDES_L0_TM_IQ_ILL1,temp_TM_IQ_ILL1);
       Xil_Out32(SERDES_L0_TX_DIG_TM_61, temp_tx_dig_tm_61);
       Xil_Out32(SERDES_L0_TM_DIG_6, temp_tm_dig_6);
@@ -22259,10 +22263,10 @@ static int serdes_illcalib (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protoc
       PSU_Mask_Write(SERDES_L1_TM_DIG_6, 0x0000000FU, 0x00000000U);
       temp_ill12 = Xil_In32(SERDES_L1_TM_ILL12) & 0xF0;
   
-      serdes_illcalib_pcie_gen1 (0, 0, 0, 0, 1, 0, 0, 0, 0);
+      serdes_illcalib_pcie_gen1 (1, 0, 0, 0, 0, 1, 0, 0, 0, 0);
   
       Xil_Out32(SERDES_L1_PLL_FBDIV_FRAC_3_MSB,temp_pll_fbdiv_frac_3_msb_offset);
-      Xil_Out32(SERDES_PLL_REF_SEL3_OFFSET, temp_PLL_REF_SEL_OFFSET);
+      Xil_Out32(SERDES_PLL_REF_SEL1_OFFSET, temp_PLL_REF_SEL_OFFSET);
       Xil_Out32(SERDES_L1_TM_IQ_ILL1,temp_TM_IQ_ILL1);
       Xil_Out32(SERDES_L1_TX_DIG_TM_61, temp_tx_dig_tm_61);
       Xil_Out32(SERDES_L1_TM_DIG_6, temp_tm_dig_6);
@@ -22286,10 +22290,10 @@ static int serdes_illcalib (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protoc
       PSU_Mask_Write(SERDES_L2_TM_DIG_6, 0x0000000FU, 0x00000000U);
       temp_ill12 = Xil_In32(SERDES_L2_TM_ILL12) & 0xF0;
   
-      serdes_illcalib_pcie_gen1 (0, 0, 1, 0, 0, 0, 0, 0, 0);
+      serdes_illcalib_pcie_gen1 (2, 0, 0, 1, 0, 0, 0, 0, 0, 0);
   
       Xil_Out32(SERDES_L2_PLL_FBDIV_FRAC_3_MSB,temp_pll_fbdiv_frac_3_msb_offset);
-      Xil_Out32(SERDES_PLL_REF_SEL3_OFFSET, temp_PLL_REF_SEL_OFFSET);
+      Xil_Out32(SERDES_PLL_REF_SEL2_OFFSET, temp_PLL_REF_SEL_OFFSET);
       Xil_Out32(SERDES_L2_TM_IQ_ILL1,temp_TM_IQ_ILL1);
       Xil_Out32(SERDES_L2_TX_DIG_TM_61, temp_tx_dig_tm_61);
       Xil_Out32(SERDES_L2_TM_DIG_6, temp_tm_dig_6);
@@ -22313,7 +22317,7 @@ static int serdes_illcalib (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protoc
       PSU_Mask_Write(SERDES_L3_TM_DIG_6, 0x0000000FU, 0x00000000U);
       temp_ill12 = Xil_In32(SERDES_L3_TM_ILL12) & 0xF0;
   
-      serdes_illcalib_pcie_gen1 (1, 0, 0, 0, 0, 0, 0, 0, 0);
+      serdes_illcalib_pcie_gen1 (3, 1, 0, 0, 0, 0, 0, 0, 0, 0);
   
       Xil_Out32(SERDES_L3_PLL_FBDIV_FRAC_3_MSB,temp_pll_fbdiv_frac_3_msb_offset);
       Xil_Out32(SERDES_PLL_REF_SEL3_OFFSET, temp_PLL_REF_SEL_OFFSET);
@@ -22358,12 +22362,12 @@ static int serdes_illcalib (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protoc
   {
    if (lane0_rate == 0) 
    {
-     serdes_illcalib_pcie_gen1 (lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, 0, 0);
+     serdes_illcalib_pcie_gen1 (0, lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, 0, 0);
    }
    else 
    {
-     serdes_illcalib_pcie_gen1 (lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, 0, 0);
-     serdes_illcalib_pcie_gen1 (lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, lane0_rate, 1);
+     serdes_illcalib_pcie_gen1 (0, lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, 0, 0);
+     serdes_illcalib_pcie_gen1 (0, lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, lane0_rate, 1);
    }
   }
 
