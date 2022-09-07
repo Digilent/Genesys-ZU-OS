@@ -1,15 +1,11 @@
 # Genesys ZU-5EV Petalinux Repository
 
-**Important!** *This repository is under construction. Many master branches do not yet exist, and many links to the Digilent wiki may point to under construction pages.*
+## Genesys ZU-5EV Base Demo
 
-This repository contains the petalinux projects for each of the demos that we provide for Genesys ZU-5EV. As each of these demos also requires a hardware design, and potentially software sources, this repository should not be used directly. The [Genesys ZU](https://github.com/Digilent/Genesys-ZU) repository contains all sources for these demos across all tools, and pulls in all of this repository's sources by using it as a submodule.
+This is a simple Petalinux base project with the Zynq Ultrascale+ MPSoc configured with the given Vivado board file.
 
-For additional documentation on individual demos, and for instructions on how to use them with your Genesys ZU-3EG, visit their pages on the Digilent Wiki, linked below.
+For more information on the Genesys ZU-5EV, see its [Resource Center](https://reference.digilentinc.com/programmable-logic/genesys-zu/start) on the Digilent Wiki.
 
-| Name and Wiki Link | Description |
-|--------------------|-------------|
-| [Genesys ZU-5EV OOB](https://reference.digilentinc.com/programmable-logic/genesys-zu/getting-started) | Out-of-Box Demo for the Genesys ZU-5EV|
+For instructions on how to use this repository with git, and for additional documentation on the submodule and branch structures used, please visit [Digilent FPGA Demo Git Repositories](https://reference.digilentinc.com/reference/programmable-logic/documents/git) on the Digilent Wiki. Note that use of git is not required to use this demo. Digilent recommends the use of project releases, for which instructions can be found in the demo wiki page, linked above.
 
-For more information about the Genesys ZU-5EV, visit its [Resource Center](https://reference.digilentinc.com/programmable-logic/genesys-zu/start) on the Digilent Wiki.
-
-For instructions on how to use this repository with git, and for additional documentation on the submodule and branch structures used, please visit [Digilent FPGA Demo Git Repositories](https://reference.digilentinc.com/reference/programmable-logic/documents/git) on the Digilent Wiki. Note that use of git is not required to use this demo. Digilent recommends the use of project releases, for which instructions can be found in each demo wiki page, linked in the table of demos, above.
+Note: If using git, as this demo requires sources for tools other than Vivado, which are provided in other repos, it is recommended to get these sources through the corresponding branch of the  Genesys ZU repository, which uses submodules to bring in sources for all tools used by this demo. This is described in the Digilent FPGA Demo Git Repositories page, linked above.
