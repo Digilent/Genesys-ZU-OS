@@ -1,0 +1,93 @@
+From cbb7c5fc7229b3535fbd1c4c8b2cdc36fc3e9512 Mon Sep 17 00:00:00 2001
+From: Amit Kumar Mahapatra <amit.kumar-mahapatra@xilinx.com>
+Date: Sun, 22 Aug 2021 12:46:19 -0600
+Subject: [LINUX PATCH] spi: zynqmp-gqspi: Fix chipselect timeout issue
+
+The existing implementation has a loophole where under a corner case the
+driver may issue a transfer completion to the framework with data bytes
+still present in the tx fifo.
+
+The corner case is hit, when the controller gets into TXNOTFULL and
+TXEMPTY conditions simultaneously while entering the ISR. This can happen
+when TXNOTFULL condition has been met but there is significant delay in
+entering the ISR (could be because Linux was busy processing some other
+ISR). If the delay is long enough to drain out the remaining bytes in
+txfifo, the interrupt status read in the ISR will show that both TXNOTFULL
+and TXEMPTY conditions are hit. Along with these, if there is this
+condition where the remaining bytes to be txed (and loaded into the fifo)
+are less than or equal to fifo threshold, the bug in existing
+implementation will end up issuing a completion message to the framework
+with tx bytes left in fifo.
+The subsequent chip deselect from framework will then stop further
+transfers with left out tx bytes in the tx fifo.
+
+The proposed fix in this patch uses the TXEMPTY interrupt to ensure that
+the txfifo is completely emptied out before the upper layers are informed
+of the transfer completion.
+The patch also makes other changes with regards to the tx path handling in
+the ISR.
+
+Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@xilinx.com>
+---
+ drivers/spi/spi-zynqmp-gqspi.c | 34 +++++++++++++++++++++-------------
+ 1 file changed, 21 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/spi/spi-zynqmp-gqspi.c b/drivers/spi/spi-zynqmp-gqspi.c
+index cb72a8d578e4..f582b22fe699 100644
+--- a/drivers/spi/spi-zynqmp-gqspi.c
++++ b/drivers/spi/spi-zynqmp-gqspi.c
+@@ -806,12 +806,6 @@ static irqreturn_t zynqmp_qspi_irq(int irq, void *dev_id)
+ 		zynqmp_gqspi_write(xqspi, GQSPI_QSPIDMA_DST_I_STS_OFST,
+ 								dma_status);
+ 	}
+-
+-	if (mask & GQSPI_ISR_TXNOT_FULL_MASK) {
+-		zynqmp_qspi_filltxfifo(xqspi, GQSPI_TX_FIFO_FILL);
+-		ret = IRQ_HANDLED;
+-	}
+-
+ 	if (dma_status & GQSPI_QSPIDMA_DST_I_STS_DONE_MASK) {
+ 		zynqmp_process_dma_irq(xqspi);
+ 		ret = IRQ_HANDLED;
+@@ -824,16 +818,30 @@ static irqreturn_t zynqmp_qspi_irq(int irq, void *dev_id)
+ 		zynqmp_qspi_readrxfifo(xqspi, GQSPI_RX_FIFO_FILL);
+ 		ret = IRQ_HANDLED;
+ 	}
+-
+-	if ((xqspi->bytes_to_receive == 0) && (xqspi->bytes_to_transfer == 0)
+-			&& ((status & GQSPI_IRQ_MASK) == GQSPI_IRQ_MASK)) {
+-		zynqmp_disable_intr(xqspi);
+-		xqspi->isinstr = false;
+-		spi_finalize_current_transfer(master);
+-		ret = IRQ_HANDLED;
++	if (xqspi->bytes_to_receive == 0 && xqspi->bytes_to_transfer == 0 &&
++	    ((status & GQSPI_IRQ_MASK) == GQSPI_IRQ_MASK)) {
++		goto transfer_complete;
++	}
++	if (mask & GQSPI_ISR_TXNOT_FULL_MASK) {
++		zynqmp_qspi_filltxfifo(xqspi, GQSPI_TX_FIFO_FILL);
++		if (xqspi->bytes_to_transfer == 0) {
++			/* Disable the TXNOT_FULL interrupt */
++			zynqmp_gqspi_write(xqspi, GQSPI_IDR_OFST,
++					   GQSPI_IER_TXNOT_FULL_MASK);
++			/* Enable the TXEMPTY interrupt */
++			zynqmp_gqspi_write(xqspi, GQSPI_IER_OFST,
++					   GQSPI_IER_TXEMPTY_MASK);
++		}
++		ret =  IRQ_HANDLED;
+ 	}
+ 
+ 	return ret;
++
++transfer_complete:
++	zynqmp_disable_intr(xqspi);
++	xqspi->isinstr = false;
++	spi_finalize_current_transfer(master);
++	return IRQ_HANDLED;
+ }
+ 
+ /**
+-- 
+2.17.1
+
+
