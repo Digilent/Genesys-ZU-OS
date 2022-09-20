@@ -8,8 +8,8 @@ ifeq ($(OS), NAME="Arch Linux")
 	export PATH := $(PATH):/usr/sbin:/sbin:/bin
 endif
 
-BOARD ?= zuca
-BOARD_TYPE ?= 3ev
+BOARD ?= genesys-zu
+BOARD_TYPE ?= 5ev
 
 output_dir = images/linux
 input_dir = images/linux
@@ -47,6 +47,7 @@ build_image: prepare_image
 	if mountpoint -q -- "${emmc_img_boot_path}"; then \
 		cp -v ${input_dir}/BOOT.BIN ${emmc_img_boot_path}; \
 		cp -v ${input_dir}/image.ub ${emmc_img_boot_path}; \
+		cp -v ${input_dir}/boot.scr ${emmc_img_boot_path}; \
 		sync; \
 		sudo umount -v $${disk_file}p1 && \
 		rm -rv ${emmc_img_boot_path}; \
@@ -63,3 +64,4 @@ compress_image:
 
 .PHONY: image
 image: build_image compress_image
+
