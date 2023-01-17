@@ -3512,11 +3512,11 @@ CONFIG_bridge-utils=y
 #
 # wpa-supplicant 
 #
-# CONFIG_wpa-supplicant is not set
-# CONFIG_wpa-supplicant-passphrase is not set
+CONFIG_wpa-supplicant=y
+CONFIG_wpa-supplicant-passphrase=y
 # CONFIG_wpa-supplicant-dev is not set
 # CONFIG_wpa-supplicant-dbg is not set
-# CONFIG_wpa-supplicant-cli is not set
+CONFIG_wpa-supplicant-cli=y
 
 #
 # ntp
@@ -4103,7 +4103,12 @@ CONFIG_Init-manager-systemd=y
 # user packages 
 #
 # CONFIG_gpio-demo is not set
+CONFIG_iw=y
 # CONFIG_peekpoke is not set
+CONFIG_wilc-firmware-1000-wifi=y
+# CONFIG_wilc-firmware-3000-ble is not set
+# CONFIG_wilc-firmware-3000-wifi is not set
+CONFIG_wilc-firmware-license=y
 
 #
 # PetaLinux RootFS Settings
