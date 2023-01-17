@@ -1,0 +1,25 @@
+From b218adf07bb98e57d8941b16cbe0eb3dadd0b1b2 Mon Sep 17 00:00:00 2001
+From: Elod Gyorgy <elod.gyorgy@digilent.ro>
+Date: Fri, 4 Nov 2022 19:39:06 +0200
+Subject: [PATCH 5/5] zynqmp_fsbl: default to debug level prints
+
+---
+ lib/sw_apps/zynqmp_fsbl/src/xfsbl_config.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/sw_apps/zynqmp_fsbl/src/xfsbl_config.h b/lib/sw_apps/zynqmp_fsbl/src/xfsbl_config.h
+index d6d8dc231f..254b0fcb22 100644
+--- a/lib/sw_apps/zynqmp_fsbl/src/xfsbl_config.h
++++ b/lib/sw_apps/zynqmp_fsbl/src/xfsbl_config.h
+@@ -77,7 +77,7 @@ extern "C" {
+ #endif
+ 
+ #ifndef FSBL_DEBUG_VAL
+-#define FSBL_DEBUG_VAL              (0U)
++#define FSBL_DEBUG_VAL              (1U)
+ #endif
+ 
+ #ifndef FSBL_DEBUG_INFO_VAL
+-- 
+2.35.1
+
