@@ -23613,8 +23613,10 @@ psu_init(void)
 	status &=  psu_peripherals_pre_init_data();
 	status &=   psu_pll_init_data();
 	status &=   psu_clock_init_data();
+#ifndef XPAR_DYNAMIC_DDR_ENABLED 
 	status &=  psu_ddr_init_data();
 	status &=  psu_ddr_phybringup_data();
+#endif
 	status &=  psu_peripherals_init_data();
 	status &=  init_serdes();
 	init_peripheral();
@@ -23636,7 +23638,9 @@ int psu_init_ddr_self_refresh(void) {
 	status &=  psu_peripherals_pre_init_data();
 	status &=   psu_pll_init_data();
 	status &=   psu_clock_init_data();
+#ifndef XPAR_DYNAMIC_DDR_ENABLED 
 	status &=  psu_ddr_init_data();
+#endif
 	status &=  psu_peripherals_init_data();
 	status &=  init_serdes();
 	init_peripheral();
