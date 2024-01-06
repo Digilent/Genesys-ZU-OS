@@ -4,9 +4,11 @@ build/
 images/linux/
 pre-built/linux/
 .petalinux/*
+!.petalinux/.keep
 !.petalinux/metadata
 *.o
 *.jou
 *.log
+*.log.old
 /components/plnx_workspace
 /components/yocto
