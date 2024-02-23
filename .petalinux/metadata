@@ -1,0 +1,5 @@
+PETALINUX_VER=2023.1
+VALIDATE_HW_CHKSUM=1
+HARDWARE_PATH=/work/projects/hw/zu/5ev/oob/next/hw_handoff/system_wrapper.xsa
+HDF_EXT=xsa
+YOCTO_SDK=3f2dfd6df41ad64db386a88d6b89edd2
