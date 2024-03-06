@@ -12,3 +12,5 @@ pre-built/linux/
 *.log.old
 /components/plnx_workspace
 /components/yocto
+.Xil/
+.statistics
