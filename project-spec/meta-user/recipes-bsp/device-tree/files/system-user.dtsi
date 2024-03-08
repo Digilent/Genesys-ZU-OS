@@ -99,20 +99,20 @@ devicetree/bindings/mux/mux-controller.txt
 			#address-cells = <1>;
 			#size-cells = <0>;
 			reg = <3>;
-			pmu@43 { /* IRPS5401 - IC81 */
+			pmu@13 { /* IRPS5401 - IC81 */
 				#clock-cells = <0>;
 				compatible = "infineon,irps5401";
-				reg = <0x43>; /*PMBUS address*/
+				reg = <0x13>; /*I2C address*/
 			};
-			pmu@44 { /* IRPS5401 - IC83 */
+			pmu@14 { /* IRPS5401 - IC83 */
 				#clock-cells = <0>;
 				compatible = "infineon,irps5401";
-				reg = <0x44>; /*PMBUS address*/
+				reg = <0x14>; /*I2C address*/
 			};
-			pmu@45 { /* IRPS5401 - IC84 */
+			pmu@15 { /* IRPS5401 - IC84 */
 				#clock-cells = <0>;
 				compatible = "infineon,irps5401";
-				reg = <0x45>; /*PMBUS address*/
+				reg = <0x15>; /*I2C address*/
 			};
 		};
 		i2c@4 {
