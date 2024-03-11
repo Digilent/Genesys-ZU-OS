@@ -4814,11 +4814,11 @@ set psu_ddr_init_data {
 		# Register : GPR1 @ 0XFD0800C4</p>
 
 		# General Purpose Register 1
-		# PSU_DDR_PHY_GPR1_GPR1                                                           0xe3
+		# PSU_DDR_PHY_GPR1_GPR1                                                           0xe5
 
 		# General Purpose Register 1
-		#(OFFSET, MASK, VALUE)      (0XFD0800C4, 0xFFFFFFFFU ,0x000000E3U)  */
-    mask_write 0XFD0800C4 0xFFFFFFFF 0x000000E3
+		#(OFFSET, MASK, VALUE)      (0XFD0800C4, 0xFFFFFFFFU ,0x000000E5U)  */
+    mask_write 0XFD0800C4 0xFFFFFFFF 0x000000E5
 		# Register : DCR @ 0XFD080100</p>
 
 		# DDR4 Gear Down Timing.
@@ -6486,14 +6486,14 @@ set psu_ddr_init_data {
 		# PSU_DDR_PHY_DX0GCR4_RESERVED_7_6                                                0x0
 
 		# VREF Enable control for DQ IO (Single Ended) buffers of a byte lane.
-		# PSU_DDR_PHY_DX0GCR4_DXREFIEN                                                    0xf
+		# PSU_DDR_PHY_DX0GCR4_DXREFIEN                                                    0x1
 
 		# VRMON control for DQ IO (Single Ended) buffers of a byte lane.
 		# PSU_DDR_PHY_DX0GCR4_DXREFIMON                                                   0x0
 
 		# DATX8 n General Configuration Register 4
-		#(OFFSET, MASK, VALUE)      (0XFD080710, 0xFFFFFFFFU ,0x0E00B03CU)  */
-    mask_write 0XFD080710 0xFFFFFFFF 0x0E00B03C
+		#(OFFSET, MASK, VALUE)      (0XFD080710, 0xFFFFFFFFU ,0x0E00B004U)  */
+    mask_write 0XFD080710 0xFFFFFFFF 0x0E00B004
 		# Register : DX0GCR5 @ 0XFD080714</p>
 
 		# Reserved. Returns zeros on reads.
@@ -6739,14 +6739,14 @@ set psu_ddr_init_data {
 		# PSU_DDR_PHY_DX1GCR4_RESERVED_7_6                                                0x0
 
 		# VREF Enable control for DQ IO (Single Ended) buffers of a byte lane.
-		# PSU_DDR_PHY_DX1GCR4_DXREFIEN                                                    0xf
+		# PSU_DDR_PHY_DX1GCR4_DXREFIEN                                                    0x1
 
 		# VRMON control for DQ IO (Single Ended) buffers of a byte lane.
 		# PSU_DDR_PHY_DX1GCR4_DXREFIMON                                                   0x0
 
 		# DATX8 n General Configuration Register 4
-		#(OFFSET, MASK, VALUE)      (0XFD080810, 0xFFFFFFFFU ,0x0E00B03CU)  */
-    mask_write 0XFD080810 0xFFFFFFFF 0x0E00B03C
+		#(OFFSET, MASK, VALUE)      (0XFD080810, 0xFFFFFFFFU ,0x0E00B004U)  */
+    mask_write 0XFD080810 0xFFFFFFFF 0x0E00B004
 		# Register : DX1GCR5 @ 0XFD080814</p>
 
 		# Reserved. Returns zeros on reads.
