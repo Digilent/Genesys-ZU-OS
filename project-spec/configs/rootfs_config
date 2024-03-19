@@ -615,7 +615,7 @@ CONFIG_nfs-utils=y
 #
 # wget 
 #
-# CONFIG_wget is not set
+CONFIG_wget=y
 # CONFIG_wget-dev is not set
 # CONFIG_wget-dbg is not set
 
@@ -2195,7 +2195,7 @@ CONFIG_libdfx=y
 #
 # ca-certificates 
 #
-# CONFIG_ca-certificates is not set
+CONFIG_ca-certificates=y
 # CONFIG_ca-certificates-dev is not set
 # CONFIG_ca-certificates-dbg is not set
 
@@ -3499,7 +3499,7 @@ CONFIG_wpa-supplicant-cli=y
 #
 # ntp
 #
-# CONFIG_ntp is not set
+CONFIG_ntp=y
 # CONFIG_ntp-dev is not set
 # CONFIG_ntp-dbg is not set
 
