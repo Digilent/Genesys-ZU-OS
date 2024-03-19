@@ -3,3 +3,7 @@
 
 CONFIG_gpio-demo
 CONFIG_peekpoke
+CONFIG_wilc-firmware-1000-wifi
+CONFIG_wilc-firmware-3000-wifi
+CONFIG_wilc-firmware-3000-ble
+CONFIG_wilc-firmware-license
