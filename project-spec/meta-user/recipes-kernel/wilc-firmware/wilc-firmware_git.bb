@@ -20,11 +20,12 @@ do_compile() {
 }
 
 do_install() {
-    install -d ${D}${nonarch_base_libdir}/firmware/mchp
-    cp wilc*.bin ${D}${nonarch_base_libdir}/firmware/mchp
+    install -d ${D}${nonarch_base_libdir}/firmware/atmel
+    cp wilc*.bin ${D}${nonarch_base_libdir}/firmware/atmel
+    install -m 0644 wilc1000_wifi_firmware.bin ${D}${nonarch_base_libdir}/firmware/atmel/wilc1000_wifi_firmware-1.bin
 
     # For license package:
-    install -m 0644 LICENSE.wilc_fw ${D}${nonarch_base_libdir}/firmware/mchp/
+    install -m 0644 LICENSE.wilc_fw ${D}${nonarch_base_libdir}/firmware/atmel/
 }
 
 PACKAGES =+ " \
@@ -38,12 +39,15 @@ RDEPENDS:${PN}-1000-wifi = "${PN}-license"
 RDEPENDS:${PN}-3000-wifi = "${PN}-license"
 RDEPENDS:${PN}-3000-ble = "${PN}-license"
 
-FILES:${PN}-1000-wifi = "${nonarch_base_libdir}/firmware/mchp/wilc1000_wifi_firmware.bin"
-FILES:${PN}-3000-wifi = "${nonarch_base_libdir}/firmware/mchp/wilc3000_wifi_firmware.bin"
-FILES:${PN}-3000-ble = "${nonarch_base_libdir}/firmware/mchp/wilc3000_ble*.bin"
-FILES:${PN}-license += "${nonarch_base_libdir}/firmware/mchp/LICENSE.wilc_fw"
+FILES:${PN}-1000-wifi = "\
+    ${nonarch_base_libdir}/firmware/atmel/wilc1000_wifi_firmware.bin \
+    ${nonarch_base_libdir}/firmware/atmel/wilc1000_wifi_firmware-1.bin \
+    "
+FILES:${PN}-3000-wifi = "${nonarch_base_libdir}/firmware/atmel/wilc3000_wifi_firmware.bin"
+FILES:${PN}-3000-ble = "${nonarch_base_libdir}/firmware/atmel/wilc3000_ble*.bin"
+FILES:${PN}-license += "${nonarch_base_libdir}/firmware/atmel/LICENSE.wilc_fw"
 
-FILES:${PN} += "${nonarch_base_libdir}/firmware/mchp/*"
+FILES:${PN} += "${nonarch_base_libdir}/firmware/atmel/*"
 RDEPENDS:${PN} += "${PN}-license"
 
 # Make wilc-firmware depend on all of the split-out packages.
