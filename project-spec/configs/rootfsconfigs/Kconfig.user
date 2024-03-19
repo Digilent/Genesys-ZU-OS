@@ -7,4 +7,20 @@ config peekpoke
 	 bool "peekpoke"
 	 help
 	
+config wilc-firmware-1000-wifi  
+	 bool "wilc-firmware-1000-wifi"
+	 help
+	
+config wilc-firmware-3000-ble  
+	 bool "wilc-firmware-3000-ble"
+	 help
+	
+config wilc-firmware-3000-wifi  
+	 bool "wilc-firmware-3000-wifi"
+	 help
+	
+config wilc-firmware-license  
+	 bool "wilc-firmware-license"
+	 help
+	
 endmenu
