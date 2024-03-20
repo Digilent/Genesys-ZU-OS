@@ -3,6 +3,10 @@ config gpio-demo
 	 bool "gpio-demo"
 	 help
 	
+config htop  
+	 bool "htop"
+	 help
+	
 config peekpoke  
 	 bool "peekpoke"
 	 help
