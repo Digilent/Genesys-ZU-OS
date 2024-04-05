@@ -315,7 +315,7 @@ CONFIG_mtd-utils=y
 #
 # bash 
 #
-# CONFIG_bash is not set
+CONFIG_bash=y
 # CONFIG_bash-dbg is not set
 # CONFIG_bash-dev is not set
 
@@ -1456,7 +1456,7 @@ CONFIG_libdfx=y
 #
 # libgpiod
 #
-# CONFIG_libgpiod is not set
+CONFIG_libgpiod=y
 # CONFIG_libgpiod-dev is not set
 # CONFIG_libgpiod-dbg is not set
 
@@ -4079,10 +4079,13 @@ CONFIG_Init-manager-systemd=y
 #
 # user packages 
 #
+CONFIG_libgpiod-tools=y
 # CONFIG_gpio-demo is not set
 CONFIG_htop=y
 # CONFIG_peekpoke is not set
+# CONFIG_picocom is not set
 CONFIG_pwm-rgb-led=y
+CONFIG_test-suite=y
 CONFIG_wilc-firmware-1000-wifi=y
 # CONFIG_wilc-firmware-3000-ble is not set
 # CONFIG_wilc-firmware-3000-wifi is not set
