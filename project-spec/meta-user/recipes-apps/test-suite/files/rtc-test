@@ -8,7 +8,7 @@ set -e
 aprox=20
 ref=$1
 if [ "$2" ]; then
-	date -s "$(date --date='@'$1'')"
+	date -s '@'$1
 	hwclock -w;
 else
 	sse=$(date "+%s")
