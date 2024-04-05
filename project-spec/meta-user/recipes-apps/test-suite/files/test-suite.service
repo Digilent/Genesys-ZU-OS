@@ -1,0 +1,10 @@
+[Unit]
+Description=Listen on serial port for bist commands
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/test-suite
+Type=simple
+
+[Install]
+WantedBy=multi-user.target

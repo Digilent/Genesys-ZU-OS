@@ -7,7 +7,7 @@ SECTION = "PETALINUX/apps"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-SRC_URI = "file://zuca-test-suite \
+SRC_URI = "file://test-suite \
 	file://rtc-test \
 	file://uio-test \
 	file://sysmon \
@@ -19,22 +19,22 @@ SRC_URI = "file://zuca-test-suite \
 	file://network-bist \
 	file://wifi-bist \
 	file://pci-bist \
-	file://zuca-init \
+	file://test-suite.service \
 	file://find-i2c-bus \
 	file://type-c-dir \
 	"
 
-inherit update-rc.d
-
 S = "${WORKDIR}"
 
-inherit update-rc.d
-INITSCRIPT_NAME = "zuca-init"
-INITSCRIPT_PARAMS = "start 99 S ."
+inherit systemd
+
+SYSTEMD_AUTO_ENABLE = "enable"
+SYSTEMD_SERVICE:${PN} = "test-suite.service"
+
 
 do_install() {
 	install -d ${D}/${bindir}
-	install -m 0755 ${S}/zuca-test-suite ${D}/${bindir}
+	install -m 0755 ${S}/test-suite ${D}/${bindir}
 	install -m 0755 ${S}/rtc-test ${D}/${bindir}
 	install -m 0755 ${S}/uio-test ${D}/${bindir}
 	install -m 0755 ${S}/sysmon ${D}/${bindir}
@@ -49,9 +49,9 @@ do_install() {
 	install -m 0755 ${S}/find-i2c-bus ${D}/${bindir}
 	install -m 0755 ${S}/type-c-dir ${D}/${bindir}
 
-	#config
-	install -d ${D}${sysconfdir}/init.d
-	install -m 0755 ${S}/zuca-init ${D}${sysconfdir}/init.d/zuca-init
+	#systemd
+	install -d ${D}/${systemd_system_unitdir}
+	install -m 0644 ${S}/test-suite.service ${D}/${systemd_system_unitdir}
 }
 
-FILES_${PN} += "${sysconfdir}/*"
+FILES_${PN} += "${systemd_unitdir}/*"
