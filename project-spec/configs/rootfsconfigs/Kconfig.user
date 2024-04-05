@@ -1,4 +1,8 @@
 menu "user packages " 
+config libgpiod-tools  
+	 bool "libgpiod-tools"
+	 help
+	
 config gpio-demo  
 	 bool "gpio-demo"
 	 help
@@ -11,8 +15,16 @@ config peekpoke
 	 bool "peekpoke"
 	 help
 	
+config picocom  
+	 bool "picocom"
+	 help
+	
 config pwm-rgb-led  
 	 bool "pwm-rgb-led"
+	 help
+	
+config test-suite  
+	 bool "test-suite"
 	 help
 	
 config wilc-firmware-1000-wifi  
