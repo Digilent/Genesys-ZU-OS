@@ -446,3 +446,7 @@ devicetree/bindings/mux/mux-controller.txt
 	"gpio172",
 	"gpio173";
 };
+
+&uio_pwm_rgb_led {
+        compatible = "digilent,pwm-rgb-led";
+};
