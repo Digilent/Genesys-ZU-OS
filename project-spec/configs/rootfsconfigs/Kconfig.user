@@ -11,6 +11,10 @@ config peekpoke
 	 bool "peekpoke"
 	 help
 	
+config pwm-rgb-led  
+	 bool "pwm-rgb-led"
+	 help
+	
 config wilc-firmware-1000-wifi  
 	 bool "wilc-firmware-1000-wifi"
 	 help
