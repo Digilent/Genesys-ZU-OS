@@ -363,7 +363,7 @@ CONFIG_bash=y
 #
 # usbutils 
 #
-# CONFIG_usbutils is not set
+CONFIG_usbutils=y
 # CONFIG_usbutils-dev is not set
 # CONFIG_usbutils-dbg is not set
 
@@ -4085,6 +4085,7 @@ CONFIG_Init-manager-systemd=y
 # user packages 
 #
 CONFIG_libgpiod-tools=y
+CONFIG_gammu=y
 # CONFIG_gpio-demo is not set
 CONFIG_htop=y
 # CONFIG_peekpoke is not set

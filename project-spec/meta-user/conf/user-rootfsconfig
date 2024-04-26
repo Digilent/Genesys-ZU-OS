@@ -5,6 +5,7 @@ CONFIG_gpio-demo
 CONFIG_libgpiod-tools
 CONFIG_peekpoke
 CONFIG_htop
+CONFIG_gammu
 CONFIG_pwm-rgb-led
 CONFIG_picocom
 CONFIG_test-suite

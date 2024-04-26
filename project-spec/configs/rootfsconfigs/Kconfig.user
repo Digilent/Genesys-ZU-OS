@@ -3,6 +3,10 @@ config libgpiod-tools
 	 bool "libgpiod-tools"
 	 help
 	
+config gammu  
+	 bool "gammu"
+	 help
+	
 config gpio-demo  
 	 bool "gpio-demo"
 	 help
