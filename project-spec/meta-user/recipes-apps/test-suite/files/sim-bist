@@ -7,9 +7,9 @@ set -e
 _V=0;
 log()
 {
-  if [[ $_V -eq 1 ]]; then
-    echo "$@"
-  fi
+	if [[ $_V -eq 1 ]]; then
+		echo "$@"
+	fi
 }
 
 show_help ()
@@ -20,14 +20,14 @@ Usage : ${0##*/} [-h] [-i] [-l] [-v]
 
 	-i --info		  Information regarding the Modem
 
-  -v --verbose  Run action with verbose logs
+	-v --verbose  Run action with verbose logs
 EOF
 }
 
 modem_info()
 {
-  var=$(gammu identify)
-  echo "$var"
+	var=$(gammu identify)
+	echo "$var"
 }
 
 get_tty=$(dmesg | grep ".3: Qualcomm USB modem converter now attached to")
@@ -36,22 +36,22 @@ tty_name=${get_tty: -7}
 printf '[gammu] \ndevice =/dev/%s \nconnection = at\n' "$tty_name" >> ~/.gammurc
 
 while :; do
-  case $1 in
+	case $1 in
 		-h|-\?|--help)
 			show_help
 			exit
 			;;
-    -i|--info)
-      modem_info
-      exit
-      ;;
-    -v|--verbose)
-      _V=1
-      ;;
-    *)#Default case: No more options, so brake the loop.
-      break
-  esac
-  shift
+		-i|--info)
+			modem_info
+			exit
+			;;
+		-v|--verbose)
+			_V=1
+			;;
+		*)#Default case: No more options, so brake the loop.
+			break
+	esac
+	shift
 done
 
 modem=$(gammu identify)
@@ -59,8 +59,8 @@ modem=$(gammu identify)
 log "$modem"
 
 if echo "$modem" | grep -q SIM; then
-  exit 0;
+	exit 0;
 else
-  echo "ERROR no SIM found"
-  exit 1;
+	echo "ERROR no SIM found"
+	exit 1;
 fi
