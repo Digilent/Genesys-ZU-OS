@@ -22,6 +22,7 @@ SRC_URI = "file://test-suite \
 	file://test-suite.service \
 	file://find-i2c-bus \
 	file://type-c-dir \
+	file://sfp-gpio-bist \
 	"
 
 S = "${WORKDIR}"
@@ -48,6 +49,7 @@ do_install() {
 	install -m 0755 ${S}/pci-bist ${D}/${bindir}
 	install -m 0755 ${S}/find-i2c-bus ${D}/${bindir}
 	install -m 0755 ${S}/type-c-dir ${D}/${bindir}
+	install -m 0755 ${S}/sfp-gpio-bist ${D}/${bindir}
 
 	#systemd
 	install -d ${D}/${systemd_system_unitdir}
