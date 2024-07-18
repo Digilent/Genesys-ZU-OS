@@ -1,10 +1,10 @@
 /include/ "system-conf.dtsi"
 #include <dt-bindings/interrupt-controller/irq.h>
 #include <dt-bindings/gpio/gpio.h>
-#include <dt-bindings/media/xilinx-vip.h>
+// #include <dt-bindings/media/xilinx-vip.h>
 #include <dt-bindings/net/ti-dp83867.h>
 #include <dt-bindings/phy/phy.h>
-#include <dt-bindings/mux/mux.h>
+// #include <dt-bindings/mux/mux.h>
 
 / {
 	refclk2:psgtr_dp_clock {
@@ -79,7 +79,7 @@ devicetree/bindings/mux/mux-controller.txt
 		reg = <0x70>;
 		reset-gpios = <&gpio 78 GPIO_ACTIVE_HIGH>;
 		i2c-mux-idle-disconnect;
-		idle-state = <MUX_IDLE_DISCONNECT>;
+		idle-state = <0xfffffffe>; //<MUX_IDLE_DISCONNECT> == -2;
 		i2c@0 {
 			#address-cells = <1>;
 			#size-cells = <0>;
