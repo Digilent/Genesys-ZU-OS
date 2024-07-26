@@ -221,4 +221,6 @@ echo BT SERVER IS RUNNING > $bt_serial_log
 #loop to process requests
 while read request; do rx_req $request; done < $bt_serial;
 
+echo BT SERVER STOPPED > $bt_serial_log
+
 ######### TEST ENGINE END #############
