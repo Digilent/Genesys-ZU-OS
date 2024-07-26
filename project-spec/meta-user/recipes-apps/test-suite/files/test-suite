@@ -113,7 +113,7 @@ sysmon(){
 
 
 ######### TEST ENGINE BEGIN ###########
-bt_serial=/dev/ttyPS1
+bt_serial=/dev/ttyPS2
 stty -F $bt_serial 115200 raw cs8 -cstopb -parenb -echo
 
 bt_serial_log=/dev/ttyPS0
