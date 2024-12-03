@@ -2,7 +2,7 @@
 
 set -e
 # Use exapmples
-# rtc-test second_since_epoch write #This will set system and hwclock date
+# rtc-test second_since_epoch write #This will set system and hwclock date [date "+%s"]
 # rtc-test second_since_epoch #This will return 0 if rtc time was preserved after powercycle 1 otherwise;
 
 aprox=20
@@ -11,14 +11,19 @@ if [ "$2" ]; then
 	date -s '@'$1
 	hwclock -w;
 else
-	sse=$(date "+%s")
+
+	hwclk=$(devmem 0x00ffa60010 32)
+	sse=$(($hwclk))
 	low=$(($ref - $aprox))
 	high=$(($ref + $aprox))
+	drift=$(($ref - $sse))
 	if (( sse >= low && sse <= high )); then
-		echo OK $ref $low $high : $sse
+		echo OK ref:$ref, rtc:$sse, drift:$drift, low:$low, high:$high;
 		exit 0;
 	else
-		echo FAIL $ref $low $high : $sse
+		echo FAIL ref:$ref, rtc:$sse, drift:$drift, low:$low, high:$high;
 		exit 1;
 	fi
+
+	exit 0;
 fi
