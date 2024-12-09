@@ -4,6 +4,12 @@ set -e
 # Use exapmples
 # rtc-test second_since_epoch write #This will set system and hwclock date [date "+%s"]
 # rtc-test second_since_epoch #This will return 0 if rtc time was preserved after powercycle 1 otherwise;
+#
+#https://docs.amd.com/r/en-US/ug1087-zynq-ultrascale-registers/CALIB_WRITE-RTC-Register
+#Read CALIB_READ(RTC) register: sudo devmem 0x00ffa6000c 32
+#Wrie CALIB_WRITE(RTC) register: sudo devmem 0x00ffa60008 32 0x7fff
+#
+#
 
 aprox=20
 ref=$1
