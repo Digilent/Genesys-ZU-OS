@@ -3499,7 +3499,7 @@ CONFIG_wpa-supplicant-cli=y
 #
 # ntp
 #
-CONFIG_ntp=y
+# CONFIG_ntp is not set
 # CONFIG_ntp-dev is not set
 # CONFIG_ntp-dbg is not set
 
