@@ -15,19 +15,23 @@ aprox=20
 ref=$1
 if [ "$2" ]; then
 	date -s '@'$1
+	#reset calibration
+	devmem 0x00ffa60008 32 0x7fff
+	#rtc set time
 	hwclock -w;
 else
 
 	hwclk=$(devmem 0x00ffa60010 32)
+	calib=$(devmem 0x00ffa6000c 32)
 	sse=$(($hwclk))
 	low=$(($ref - $aprox))
 	high=$(($ref + $aprox))
 	drift=$(($ref - $sse))
 	if (( sse >= low && sse <= high )); then
-		echo OK ref:$ref, rtc:$sse, drift:$drift, low:$low, high:$high;
+		echo OK ref:$ref, rtc:$sse, drift:$drift, calib: $caib, low:$low, high:$high;
 		exit 0;
 	else
-		echo FAIL ref:$ref, rtc:$sse, drift:$drift, low:$low, high:$high;
+		echo FAIL ref:$ref, rtc:$sse, drift:$drift, calib: $caib, low:$low, high:$high;
 		exit 1;
 	fi
 
