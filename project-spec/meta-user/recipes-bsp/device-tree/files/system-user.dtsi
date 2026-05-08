@@ -1,5 +1,49 @@
 /include/ "system-conf.dtsi"
+#include <dt-bindings/phy/phy.h>
 / {
+	refclk2:psgtr_dp_clock {
+		compatible = "fixed-clock";
+		#clock-cells = <0x00>;
+		clock-frequency = <108000000>;
+	};
+
+	refclk1:psgtr_sata_clock {
+		compatible = "fixed-clock";
+		#clock-cells = <0x00>;
+		clock-frequency = <150000000>;
+	};
+
+	refclk0:psgtr_pcie_usb30_clock {
+		compatible = "fixed-clock";
+		#clock-cells = <0x00>;
+		clock-frequency = <100000000>;
+	};
+};
+
+&psgtr {
+	clocks = <&refclk0 &refclk1 &refclk2>;
+	/* ref clk instances used per lane */
+	clock-names = "ref0\0ref1\0ref2";
+};
+
+&dwc3_0 {
+	dr_mode = "host";
+	snps,usb3_lpm_capable;
+	phy-names = "usb3-phy";
+	//phys = <PHANDLE  LANE_NUM		CONTOLLER_TYPE	 CONTROLLER_INSTANCE	LANE_FREQ>;
+	//LANE_FREQ = refclk number that has the desired frequency
+	phys = <&psgtr 1 PHY_TYPE_USB3 0 0>;
+	snps,dis_u2_susphy_quirk ;
+	snps,dis_u3_susphy_quirk ;
+	maximum-speed = "super-speed";
+};
+
+
+&dwc3_1 {
+	snps,dis_u2_susphy_quirk;
+	snps,dis_u3_susphy_quirk;
+	//resets = <&gpiom1 5>;
+	dr_mode = "host";
 };
 
 &sdhci1 {
@@ -11,3 +55,30 @@
 	xlnx,itap-delay-sdr104 = <0x0B>; //although auto-tuned, tuning fails on some cards if not set
 };
 
+&zynqmp_dpdma {
+    status = "okay";
+};
+
+&zynqmp_dpsub {
+    status = "okay";
+    /* phy-names = "dp-phy0", "dp-phy1"; */
+    /* phys = <&lane1 PHY_TYPE_DP 0x0 0x3 27000000>, */
+    /*        <&lane0 PHY_TYPE_DP 0x1 0x3 27000000>; */
+    /* xlnx,max-lanes = <2>; */
+};
+
+&zynqmp_dp_snd_pcm0 {
+  status = "okay";
+};
+
+&zynqmp_dp_snd_pcm1 {
+  status = "okay";
+};
+
+&zynqmp_dp_snd_card0 {
+  status = "okay";
+};
+
+&zynqmp_dp_snd_codec0 {
+  status = "okay";
+};
